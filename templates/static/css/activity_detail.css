@@ -1,0 +1,74 @@
+.container{
+    
+}
+
+.content{
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid lightgray;
+}
+
+span{
+    font-family: icomoon;
+  font-size: 15px;
+  /*color: pink;*/
+}
+
+.top{
+    float: left;
+   margin-top: 10px;
+   margin-left: 250px;
+   font-family: simsun;
+   list-style: none;
+   font-size:15px;
+   margin-bottom: 20px;
+   height:30px;
+   weight:20px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  color:#34ad54;
+}
+
+.btn{
+  width:70px;
+  padding-bottom: 15px;
+}
+
+.detail_cover{
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+
+.buy{
+    margin-left: 30px;
+}
+
+form{
+    margin-top: 30px;
+}
+
+form *{
+    margin-bottom: 10px;
+}
+
+.info{
+    margin: 20px;
+}
+
+.title{
+    font-size: 20px;
+    margin-top: 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+}
+
+.sub_title{
+    color: #999;
+    font-size: 13px;
+}

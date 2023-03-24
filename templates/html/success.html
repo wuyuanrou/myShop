@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作成功</title>
+    <style>
+        p{
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <img src="{% static 'images/success.png' %}"  height="300px">
+    </div>
+    <p>操作成功</p>
+    <a href="{% url 'myShop:index' %}">点击回首页</a>
+{#    <p><span id="second">5</span>秒后跳转</p>#}
+{#    <script>#}
+{#        onload=function(){#}
+{#            setInterval(change, 1000)#}
+{#        }#}
+{#        var t=3;#}
+{#        function change(){#}
+{#            if(t>=1){#}
+{#                document.getElementById("second").innerText=t#}
+{#            }else{#}
+{#                window.open("{% url 'myShop:activities' %}") //要改为跳转到首页#}
+{#            }#}
+{#            t--#}
+{#        }#}
+{#    </script>#}
+</body>
+</html>

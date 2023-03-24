@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/activities.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
+    <title>赛事报名</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: {% static 'fonts/icomoon.eot?ccln5u' %};
+            src: {% static 'fonts/icomoon.eot?ccln5u#iefix' %} format('embedded-opentype');
+        url('{% static 'fonts/icomoon.ttf?ccln5u' %}') format('truetype'),
+        url('{% static 'fonts/icomoon.woff?ccln5u' %}') format('woff'),
+        url('{% static 'fonts/icomoon.svg?ccln5u#icomoon' %}') format('svg');
+        {#src:  url('fonts/icomoon.eot?ccln5u');#}
+        {#src:  url('fonts/icomoon.eot?ccln5u#iefix') format('embedded-opentype'),#}
+        {#url('fonts/icomoon.ttf?ccln5u') format('truetype'),#}
+        {#url('fonts/icomoon.woff?ccln5u') format('woff'),#}
+        {#url('fonts/icomoon.svg?ccln5u#icomoon') format('svg');#}
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
+        <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
+        {% if isShow %}
+            <li class="top" id="btn">
+                <button><a href="{% url 'myShop:login_page' %}" target="_self"><span>登录/注册</span></a></button>
+            </li>
+        {% endif %}
+    </div>
+
+
+    <div>
+        <img src="{% static 'images/activities_cover.jpg' %}" alt="tupian" class="lepao">
+    </div>
+    <div class="board">
+        {% for item in activities %}
+            <div class="activity">
+                <div class="thumbnail">
+                    <div class="activity_img">
+                        <a href="/myShop/{{ item.activity.activity_id }}/detail/">
+                            <img src="{% static 'images/show.png' %}" alt="海报">
+                        </a>
+                    </div>
+                    <div class="pro_icon">
+                        {% if isShow %}
+                            <a href="{% url 'myShop:login_page' %}">
+                                <img src="{% static 'images/like.png' %}" class="unLogin_like">
+                            </a>
+                        {% elif item.isLike %}
+                            <img src="{% static 'images/like_red.png' %}" class="like"
+                                 ac_id="{{ item.activity.activity_id }}">
+                        {% else %}
+                            <img src="{% static 'images/like.png' %}" class="like" ac_id="{{ item.activity.activity_id }}">
+                        {% endif %}
+
+                        {% if isShow %}
+                            <a href="{% url 'myShop:login_page' %}">
+                                <img src="{% static 'images/cart.png' %}" class="unLogin_like">
+                            </a>
+                        {% elif item.isCart %}
+                            <img src="{% static 'images/cart_orange.png' %}" class="cart">
+                        {% else %}
+                            <img src="{% static 'images/cart.png' %}" class="cart" ac_id="{{ item.activity.activity_id }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="description">
+                    <p class="title">{{ item.activity.activity_name }}</p>
+                    <p class="spot">{{ item.activity.activity_spot }}</p>
+                    <p class="time">{{ item.activity.activity_time }}</p>
+                    <p class="price">¥{{ item.activity.activity_price }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>暂无数据</p>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    function change_like() {
+        var like_list = document.getElementsByClassName("like")
+        var pro_icon_list = document.getElementsByClassName("pro_icon")
+
+        for (let i = 0; i < like_list.length; i++) {
+            like_list[i].onclick = function () {
+                if (like_list[i].getAttribute("src") === "{% static 'images/like.png' %}") {
+                    //收藏
+                    $.ajax({
+                        url: "{% url 'myShop:add_like' %}",
+                        type: 'post',
+                        data: {'activity_id': like_list[i].getAttribute('ac_id')},
+                        text: "json",
+                        success: function (data) {
+                            like_list[i].setAttribute("src", "{% static 'images/like_red.png' %}")
+                            //alert("收藏成功")
+                        },
+                        error: function (xhr) {
+                            alert('收藏error'+xhr)
+                        }
+                    })
+                }
+                {#else {#}
+                {#    //取消收藏#}
+                {#    console.log("取消")#}
+                {#    $.ajax({#}
+                {#        url: "{% url 'myShop:delete_like' %}",#}
+                {#        type: 'post',#}
+                {#        data: {'like_id': like_list[i].getAttribute('ac_id')},#}
+                {#        text: "json",#}
+                {#        success: function (data) {#}
+                {#            like_list[i].setAttribute("src", "{% static 'images/like.png' %}")#}
+                {#            //alert("取消收藏成功")#}
+                {#        },#}
+                {#        error: function (xhr) {#}
+                {#            alert('取消收藏error'+xhr)#}
+                {#        }#}
+                {#    })#}
+            }
+        }
+    }
+
+    function change_cart() {
+        var cart_list = document.getElementsByClassName("cart")
+
+        for (let i = 0; i < cart_list.length; i++) {
+            cart_list[i].onclick = function () {
+                if (cart_list[i].getAttribute("src") === "{% static 'images/cart.png' %}") {
+                    $.ajax({
+                        url: "{% url 'myShop:add_cart' %}",
+                        type: 'post',
+                        data: {'activity_id': cart_list[i].getAttribute('ac_id')},
+                        text: "json",
+                        success: function () {
+                            cart_list[i].setAttribute("src", "{% static 'images/cart_orange.png' %}")
+                            //alert("加购物车成功")
+                        },
+                        error: function (xhr) {
+                            alert('加购物车error'+xhr)
+                        }
+                    })
+                }
+                {#else {#}
+                {#    cart_list[i].setAttribute("src", "{% static 'images/cart.png' %}")#}
+            }
+        }
+    }
+
+    change_like();
+    change_cart();
+</script>
+</body>
+</html>

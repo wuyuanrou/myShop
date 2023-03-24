@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/activity_detail.css' %}" type="text/css">
+    <title>buy_ticket</title>
+</head>
+<body>
+    <div>
+        <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
+        <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
+        <li class="top" id="btn">
+            <button><a href="{% url 'myShop:login_page' %}" target="_self"><span>登录/注册</span></a></button>
+        </li>
+    </div>
+    <div style="height: 60px"></div>
+    <div style="box-shadow: inset 0 17px 10px -10px #e1dede;">
+        <div style="padding-top: 50px">
+            <div class="container">
+        <div class="content">
+            {% if activity %}
+            <div class="detail_cover">
+                <img src="{% static 'images/run1.jpeg' %}">
+                <div class="buy">
+                    <p style="font-size: 22px">{{activity.activity_name}}</p>
+                    <p style="font-size: 16px;padding-bottom: 10px">时间：{{activity.activity_time}}</p>
+                    <p style="font-size: 16px">
+                        <span>{{activity.activity_city}}</span> | <span>{{activity.activity_spot}}</span>
+                    </p>
+                    <p>价格：{{activity.activity_price}}</p>
+                    <p>已售：{{activity.activity_tickets_sold}}</p>
+                    {% block contact %}
+                    <form action="{% url 'myShop:buy_ticket' %}" method="post" enctype="multipart/form-data">
+                        <input hidden name="activity_id", value="{{ activity.activity_id }}">
+                        <p>购票人姓名<input name="buyer_name"></p>
+                        <p>取票人姓名<input name="getter_name"></p>
+                        <p>联系号码<input name="phone"></p>
+                        <select  name="seat_area">
+                            <option value="1区">1区</option>
+                            <option value="2区">2区</option>
+                            <option value="3区">3区</option>
+                        </select>
+                        <select  name="seat_column">
+                            <option value="1列">1列</option>
+                            <option value="2列">2列</option>
+                            <option value="3列">3列</option>
+                        </select>
+                        <select  name="seat_row">
+                            <option value="1排">1排</option>
+                            <option value="2排">2排</option>
+                            <option value="3排">3排</option>
+                        </select>
+                        <input type="submit" value="提交购票信息">
+                    </form>
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="info">
+                <div>
+                    <p style="font-size: 20px;">项目详情</p>
+                    <div style="background-color: deeppink;height: 4px;width: 50px"></div>
+                </div>
+                <p class="title">温馨提示</p>
+                1.购买前请您提前规划好行程，做好相应准备，以免影响您的正常观演，感谢您的理解和配合。<br/>
+                2.若演出受不可抗力影响延期或取消，网站将对演出票订单按照项目官方通知方案进行处理，其他因观演发生的费用需由您自行承担。</p>
+                <p class="title">演出详情</p>
+                <p class="sub_title">主要演员</p>
+                {{activity.artist_id.artist_name}}
+                <p class="sub_title">演员介绍</p>
+                {{activity.artist_id.artist_info}}
+                <p class="sub_title">演出介绍</p>
+                {{activity.activity_info}}
+                <p class="title">购票须知</p>
+                <p class="sub_title">限购规则</p>
+                每笔订单最多购买6张
+                <p class="sub_title">退票/换票规则</p>
+                票品为有价证券，非普通商品，其背后承载的文化服务具有时效性，稀缺性等特征，不支持退换。
+                <p class="sub_title">入场规则</p>
+                支持多种票品验票后入场，如二维码电子票、纸质票。
+                <p class="sub_title">儿童购票</p>
+                一人一票，凭票入场
+                <p class="sub_title">实名购票规则</p>
+                一张门票对应一个证件；证件支持：港澳台居民居住证/护照/台湾居民来往大陆通行证/港澳居民来往内地通行证/身份证
+                <p class="sub_title">异常排单说明</p>
+                对于异常订购行为，本网站有权在订单成立或者生效之后取消相应订单。异常订购行为包括但不限于以下情形：
+                （1）通过同一ID订购超出限购张数的订单。
+                （2）经合理判断认为非真实消费者的下单行为，包括但不限于通过批量相同或虚构的支付账号、
+                收货地址（包括下单时填写及最终实际收货地址）、收件人、电话号码订购超出限购张数的订单。
+                <p class="title">观演须知</p>
+                <p class="sub_title">演出时长</p>
+                以现场为准
+                <p class="sub_title">入场时间</p>
+                请于演出前约30分钟入场
+                <p class="sub_title">禁止携带物品</p>
+                由于安保和版权的原因，大多数演出、展览及比赛场所禁止携带食品、饮料、专业摄录设备、打火机等物品，请您注意现场工作人员和广播的提示，予以配合
+                <p class="sub_title">寄存说明</p>
+                无寄存处,请自行保管携带物品，谨防贵重物品丢失。
+            </div>
+            {% else %}
+            <p style="text-align: center;">暂无活动数据</p>
+            {% endif %}
+        </div>
+    </div>
+        </div>
+    </div>
+</body>
+</html>

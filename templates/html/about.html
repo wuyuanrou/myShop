@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关于</title>
+  <style>
+      /**{*/
+      /*  margin:0px;*/
+      /*}*/
+      /*字体声明*/
+      @font-face {
+          font-family: 'icomoon';
+          src: {% static 'fonts/icomoon.eot?ccln5u' %};
+          src: {% static 'fonts/icomoon.eot?ccln5u#iefix' %} format('embedded-opentype');
+          url('{% static 'fonts/icomoon.ttf?ccln5u' %}') format('truetype'),
+          url('{% static 'fonts/icomoon.woff?ccln5u' %}') format('woff'),
+          url('{% static 'fonts/icomoon.svg?ccln5u#icomoon' %}') format('svg');
+          {#src:  url('/fonts/icomoon.eot?ccln5u');#}
+          {#src:  url('fonts/icomoon.eot?ccln5u#iefix') format('embedded-opentype'),#}
+          {#url('fonts/icomoon.ttf?ccln5u') format('truetype'),#}
+          {#url('fonts/icomoon.woff?ccln5u') format('woff'),#}
+          {#url('fonts/icomoon.svg?ccln5u#icomoon') format('svg');#}
+          font-weight: normal;
+          font-style: normal;
+          font-display: block;
+      }
+      span{
+          {#float: left;#}
+          font-family: icomoon;
+          font-size: 15px;
+          /*color: pink;*/
+      }
+        /*#header-img{*/
+        /*      float:left;*/
+        /*      padding-left: 150px;*/
+        /*      padding-right:30px;*/
+        /*      margin-top:8px;*/
+        /*   }*/
+
+
+        /*div{*/
+          /*margin-right: 500px;*/
+          /*display: inline-block;*/
+        /*}*/
+
+
+      img{
+          width: 100%;
+          height:400px;
+      }
+         .top{
+           float: left;
+           margin-top: 10px;
+           margin-left: 250px;
+           font-family: simsun;
+           list-style: none;
+           font-size:15px;
+           margin-bottom: 20px;
+           height:30px;
+           weight:20px;
+        }
+         li:hover{
+           /*background-color: skyblue;*/
+           {#background-image:url("../../1.png");#}
+           {#overflow: hidden;#}
+         }
+          a{
+            text-decoration: none;
+            color: black;
+          }
+         .img1{
+           width:30px;
+            height:30px;
+        }
+          a:hover{
+          color:#34ad54;
+          }
+        button{
+          /*background-color: skyblue;*/
+          border:none;
+        }
+        btn{
+          width:70px;
+          padding-bottom: 15px;
+        }
+        button:hover{
+          background-color: skyblue;
+        }
+        .middle{
+            width:650px;
+            height:300px;
+            /*margin-right: 100px;*/
+            padding-right: 30px;
+            margin:34px;
+            /*background-color: hotpink;*/
+            float:left;
+            list-style: none;
+        }
+        .bottom{
+            float:left;
+            width:50%;
+            /*background-color: mediumpurple;*/
+            height:200px;
+            margin-bottom: 10px;
+            list-style: none;
+            text-align: center;
+            line-height: 100px;
+        }
+        .bottom:hover{
+            background-color: greenyellow;
+        }
+        h1{
+            color:orange;
+            text-align: center;
+        }
+        h2{
+            color:skyblue;
+            text-align: center;
+        }
+        h4{
+            text-align: center;
+        }
+        .mycss{
+            padding:0;
+            margin:0;
+        }
+        .yourcss{
+           padding:0;
+           margin:0;
+           /*height:100px;*/
+           /*background-color: orange;*/
+            text-align: left;
+            line-height: 20px;
+      }
+       h5{
+           /*text-align: center;*/
+           padding:0;
+           margin:0;
+           /*padding-bottom: 5px;*/
+        }
+        p{
+            text-align: center;
+            padding:0;
+            font-size:10px;
+        }
+        .lepao{
+            width:100%;
+            height:180px;
+        }
+        .lepao2{
+            /*float: left;*/
+            width:100%;
+            height:200px;
+        }
+        .btm{
+            background-color: black;
+            width:100%;
+            height:200px;
+        }
+      .dibu1{
+          padding-left: 100px;
+          float: left;
+          list-style: none;
+          /*background-color: tan;*/
+          /*margin-top:50px;*/
+          text-align: center;
+          line-height: 65px;
+          font-size:15px;
+          color:whitesmoke;
+      }
+      .dibu2{
+          float: right;
+          list-style: none;
+          /*background-color: red;*/
+          /*margin-top:70px;*/
+          padding-left: 0px;
+      }
+      #bottom-img{
+          width:750px;
+          height: 200px;
+      }
+      #pinheng{
+          height:1000px;
+          {#background-color: orange;#}
+      }
+  </style>
+</head>
+<body>
+<!--    <div id="header-img">-->
+<!--         <img src="综合实践1.png" alt="tupian" class="img1">-->
+<!--    </div>-->
+     <div>
+          <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
+          <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+          <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
+         <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
+         {% if isShow %}
+          <li class="top" id="btn"> <button><a href="{% url 'myShop:login_page' %}"  target="_self"><span>登录/注册</span></a></button></li>
+         {% endif %}
+     </div>
+
+
+     <div>
+         <img src="{% static 'images/lepao.jpg' %}" alt="tupian"  title="tupian">
+     </div>
+
+
+     <div>
+         <li class="middle">
+             <p>
+             <h1 class="mycss">RUN FOR FUN</h1>
+             <h2 class="mycss">关于乐跑</h2>
+             </p>
+             <h4>举办场次超60场</h4><hr>
+             <h4>累计参与100(๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤人次</h4><hr>
+             <h4>累计举办200次活动</h4>
+
+         </li>
+         <li class="middle">
+             <p>2013年，万科企业股份有限公司发起并主办全程5公里城市乐跑赛，以团队方式参与，旨在让更多企业关注员工身体健康，倡导阳光向上的工作生活
+                 方式，鼓励企业积极为员工创造健康运动条件和改善工作环境。</p>
+             <p>目前，乐跑系列活动已发展成为国民参与度最深、影响力最大、覆盖率最广的全民健身IP。</p>
+             <img src="{% static 'images/lepao2.jpg' %}" alt="" class="lepao">
+         </li>
+     </div>
+
+
+    <div>
+        <li class="bottom"><img src="{% static 'images/lepao3.jpg' %}" alt="" class="lepao2"><p>
+        <li class="bottom" >
+        <h5>城市乐跑赛</h5>
+        <p class="yourcss">2013年3月，万科首站城市乐跑赛在深圳鸣枪起跑。城市乐跑赛联合城市有影响力的企事业
+        单位共同参与,通过活动，让参赛者享受跑步带来的乐趣，感受城市的活力，使参赛机构关注员工身体、
+        倡导健康生活。城市乐跑赛由国家体育总局群众体育司发文批复指导，是国家践行全民健身战略的重点扶持项目之一自创立以来，有多位形象阳光、热爱运动的
+            大咖出任过“乐跑大使”，著名呼吸系统疾病专家、中国工程院院士钟南山，奥运冠军、体操王子李宁，奥运冠军、“东方神鹿”王军霞等。
+        </p>
+    </li>
+        </li>
+        <li class="bottom"><img src="{% static 'images/lepao4.jpg' %}" alt="" class="lepao2"></li>
+        <li class="bottom">
+            <h5>社区乐跑赛</h5>
+            <p class="yourcss">  2015年4月26日，首届社区乐跑赛在深圳起跑。社区乐跑赛致力于把健康快乐的理念传递进社区，通过阳光快乐的奔跑，团结邻里关系，促进社区与家庭
+                和谐。社区乐跑赛与“爱的每一步”孤独症关怀公益行动一起，每位跑者的社区乐跑赛报名费用都将捐赠给当地城市的公益基金组织，用于为孤独症家庭提供关怀和帮助。</p>
+
+        </li>
+
+        <li class="bottom"><img src="{% static 'images/lepao5.jpg' %}" alt="" class="lepao2"></li>
+        <li class="bottom">
+            <h5>大学乐跑赛</h5>
+            <p class="yourcss"> 2015年，万科尝试将乐跑的模式带入大学，打造大学乐跑赛，赛事以大学为载体，面向高校学生组织，鼓励即将投身社会的
+                青年积极参与健康运动，培养阳光积极的运动习惯，提高身体素质，传递正能量。</p>
+        </li>
+
+    </div>
+
+
+<div id="pinheng"></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+  <div class="btm">
+      <li class="dibu1">
+          <p>深圳市乐跑运动推广传播有限公司 </br>
+              粤ICP备15080002号-2
+
+
+          指导单位: 国家体育总局群众体育司 主办单位: 万科企业股份有限公司</p>
+          设计支持</li>
+      <li class="dibu2"><img src="{% static 'images/tb.png' %}" alt="" id="bottom-img"></li>
+  </div>
+
+</body>
+</html>

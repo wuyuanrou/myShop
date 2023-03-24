@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/user_page.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
+    <title>我的</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
+        <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
+        {% if isShow %}
+            <li class="top" id="btn">
+                <button><a href="{% url 'myShop:login_page' %}" target="_self"><span>登录/注册</span></a></button>
+            </li>
+        {% endif %}
+    </div>
+    <div style="height: 60px"></div>
+    <div class="content">
+        <div class="left">
+            <div>
+                <img src="{% static 'images/run.jpeg' %}" class="icon">
+            </div>
+            {% if status %}
+                <p>用户名：{{ user.user_name }}</p>
+                <p>用户简介：{{ user.user_info }}</p>
+                <form action="{% url 'myShop:change_password' %}" method="post">
+                    <input type="text" name="new_password">
+                    <input value="修改密码" type="submit">
+                </form>
+                <form action="{% url 'myShop:logout' %}">
+                    <button>退出登录</button>
+                </form>
+            {% else %}
+                <form action="{% url 'myShop:login_page' %}">
+                    <button>登录/注册</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="right">
+            <p style="font-weight: bold;font-size: 20px">我的门票</p>
+            <div class="tickets">
+                {% for ticket in user.tickets %}
+                    <div class="ticket">
+                        <div class="description">
+                            <p>活动名：{{ ticket.activity_id.activity_name }}</p>
+                        </div>
+                        <div class="description">
+                            <p>时间：{{ ticket.activity_id.activity_time }}</p>
+                            <p>
+                                <span>城市：{{ ticket.activity_id.activity_city }}</span>
+                                <span>地点：{{ ticket.activity_id.activity_spot }}</span>
+                            </p>
+                            <span>座位号：{{ ticket.seat }}</span>
+                        </div>
+                        <button ac_id="{{ ticket.ticket_id }}"
+                                onclick="delete_ticket(this)">退票</button>
+                    </div>
+                {% empty %}
+                    <p>暂无数据</p>
+                {% endfor %}
+            </div>
+            <p style="font-weight: bold;font-size: 20px">我的购物车</p>
+            <div class="tickets">
+                {% for ticket in user.cart_list %}
+                    <div class="ticket">
+                        <div class="description">
+                            <p>活动名：{{ ticket.activity_id.activity_name }}</p>
+                        </div>
+                        <div class="description">
+                            <p>时间：{{ ticket.activity_id.activity_time }}</p>
+                            <p>
+                                <span>城市：{{ ticket.activity_id.activity_city }}</span>
+                                <span>地点：{{ ticket.activity_id.activity_spot }}</span>
+                            </p>
+                            <span>座位号：{{ ticket.seat }}</span>
+                        </div>
+                        <button ac_id="{{ ticket.cart_id }}"
+                                onclick="delete_cart(this)">移除</button>
+                    </div>
+                {% empty %}
+                    <p>暂无数据</p>
+                {% endfor %}
+            </div>
+            <p style="font-weight: bold;font-size: 20px">我的收藏</p>
+            <div class="like_list">
+                {% for like in user.like_list %}
+                    <div class="like">
+                        <div class="thumbnail">
+                            <div class="activity_img">
+                                <a href="/myShop/{{ like.activity_id.activity_id }}/detail/">
+                                    <img src="{% static 'images/show.png' %}" alt="海报">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="activity_description">
+                            <p class="title">{{ like.activity_id.activity_name }}</p>
+                            <p class="spot">{{ like.activity_id.activity_spot }}</p>
+                            <button ac_id="{{ like.like_id }}"
+                                    onclick="delete_like(this)"
+                            >移除
+                            </button>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>暂无数据</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    function delete_ticket(obj){
+        var ticket_id=obj.getAttribute('ac_id')
+            $.ajax({
+            url: '{% url 'myShop:delete_ticket' %}',
+            type: 'POST',
+            async: true,
+            data:{
+                ticket_id: ticket_id,
+            },
+            success:function(){alert('退票成功'); location.reload()},
+            complete:function(xhr){
+                console.log(xhr)
+                if(xhr.status===412){
+                    alert('退票-表单错误')
+                }else if(xhr.status===500){
+                    alert('退票-票不存在')
+                }
+            }
+        })
+    }
+
+    function delete_cart(obj){
+        var cart_id = obj.getAttribute('ac_id')
+        $.ajax({
+            url: "{% url 'myShop:delete_cart' %}",
+            type: 'post',
+            data: {'cart_id': cart_id},
+            async: true,
+            success: function (data) {
+                console.log(data);
+                alert('移出购物车成功')
+                location.reload() //刷新页面
+            },
+            error: function (xhr) {
+                console.log('error', xhr)
+            }
+        })
+    }
+
+    function delete_like(obj) {
+        //console.log(obj.getAttribute('ac_id'))
+        var ac_id = obj.getAttribute('ac_id')
+        //console.log("移除收藏")
+        $.ajax({
+            url: "{% url 'myShop:delete_like' %}",
+            type: 'post',
+            data: {'like_id': ac_id},
+            async: true,
+            success: function (data) {
+                console.log(data);
+                alert('取消收藏成功')
+                location.reload() //刷新页面
+            },
+            error: function (xhr) {
+                console.log('error', xhr)
+            }
+        })
+    }
+
+</script>
+</html>
