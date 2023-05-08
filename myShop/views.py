@@ -141,7 +141,11 @@ def activity_detail(request, activity_id):
     except Activity.DoesNotExist:
         return render(request, '../templates/html/fail.html')
     else:
-        return render(request, '../templates/html/activity_detail.html', {'activity': activity_data, })
+        if 'user_id' in request.COOKIES:
+            return render(request, '../templates/html/activity_detail.html', {'activity': activity_data, 'isShow': False})
+        else:
+            return HttpResponse('请先登陆')
+
 
 
 def buy_ticket(request):
