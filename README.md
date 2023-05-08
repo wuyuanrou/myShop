@@ -15,7 +15,7 @@
 :bookmark: 登录注册  
 :bookmark: 首页  
 :bookmark: 赛事报名  
-:bookmark: 购票 
+:bookmark: 购票  
 :bookmark: 关于  
 :bookmark: 我的  
 ### 功能  
