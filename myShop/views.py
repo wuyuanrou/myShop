@@ -5,7 +5,6 @@ from .forms import RegisterForm, LoginForm, ChangePasswordForm, BuyTicketForm, \
     DeleteTicketForm, LikeForm, DeleteLikeForm, CartForm, DeleteCartForm
 from .tests import like_activities, raw_activities
 
-
 # Create your views here.
 def index(request):
     if 'user_id' in request.COOKIES:
@@ -74,7 +73,9 @@ def login_check(request):
             else:
                 return HttpResponse("密码或账号错误")
     else:
-        return HttpResponse("请把资料填写完整")
+        # print(form.errors)
+        # print(form.non_field_errors)
+        return HttpResponse("资料没有填写完整或者资料填写有误")
 
 
 # 注销
@@ -96,6 +97,8 @@ def change_password(request):
             user.save()
             return render(request, '../templates/html/success.html')
     else:
+        print(form.errors)
+        print(form.non_field_errors)
         return render(request, '../templates/html/fail.html')
 
 
@@ -108,6 +111,7 @@ def user_page(request):
         like_list = Like.objects.filter(user_id=user_id)
         cart_list = Cart.objects.filter(user_id=user_id)
         user = {
+            'user_id': user_id,
             'user_name': user.user_name,
             'user_info': user.user_info,
             'tickets': tickets,

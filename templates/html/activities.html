@@ -7,7 +7,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/activities.css' %}" type="text/css">
     <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
-    <title>赛事报名</title>
+    <title>活动报名</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -31,7 +31,7 @@
 <div class="container">
     <div>
         <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
-        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>活动报名</span></a></li>
         <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
         <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
         {% if isShow %}
@@ -43,7 +43,7 @@
 
 
     <div>
-        <img src="{% static 'images/activities_cover.jpg' %}" alt="tupian" class="lepao">
+        <img src="{% static 'images/music.jpeg' %}" alt="tupian" class="lepao">
     </div>
     <div class="board">
         {% for item in activities %}
@@ -93,7 +93,7 @@
 <script>
     function change_like() {
         var like_list = document.getElementsByClassName("like")
-        var pro_icon_list = document.getElementsByClassName("pro_icon")
+        //var pro_icon_list = document.getElementsByClassName("pro_icon")
 
         for (let i = 0; i < like_list.length; i++) {
             like_list[i].onclick = function () {

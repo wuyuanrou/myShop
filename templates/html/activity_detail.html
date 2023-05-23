@@ -11,7 +11,7 @@
 <body>
     <div>
         <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
-        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>活动报名</span></a></li>
         <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
         <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
         {% if isShow %}
@@ -27,9 +27,9 @@
         <div class="content">
             {% if activity %}
             <div class="detail_cover">
-                <img src="{% static 'images/run1.jpeg' %}">
+                <img src="{% static 'images/run1.jpeg' %}" style="height: 420px;width: 500px">
                 <div class="buy">
-                    <p style="font-size: 22px">{{activity.activity_name}}</p>
+                    <p style="font-size: 22px">【{{ activity.activity_city }}】{{activity.activity_name}}</p>
                     <p style="font-size: 16px;padding-bottom: 10px">时间：{{activity.activity_time}}</p>
                     <p style="font-size: 16px">
                         <span>{{activity.activity_city}}</span> | <span>{{activity.activity_spot}}</span>

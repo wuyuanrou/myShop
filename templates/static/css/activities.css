@@ -67,15 +67,16 @@ button:hover{
 
     column-gap: 10px;
     row-gap: 50px;
+
+    justify-items: center;
+    align-items:start;
 }
 
 .activity{
-    justify-self: center;
-    align-self: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
+
 }
 
 .activity_img img{
@@ -94,6 +95,7 @@ button:hover{
 .title{
     font-size: 16px;
     line-height: 20px;
+    width: 400px;
 }
 
 .spot, .time{

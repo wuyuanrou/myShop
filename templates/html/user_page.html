@@ -13,7 +13,7 @@
 <div class="container">
     <div>
         <li class="top"><a href="{% url 'myShop:index' %}" target="_self"><span>首页</span></a></li>
-        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>赛事报名</span></a></li>
+        <li class="top"><a href="{% url 'myShop:activities' %}" target="_self"><span>活动报名</span></a></li>
         <li class="top"><a href="{% url 'myShop:about' %}" target="_self"><span>关于</span></a></li>
         <li class="top"><a href="{% url 'myShop:user_page' %}" target="_self"><span>我的</span></a></li>
         {% if isShow %}
@@ -26,9 +26,10 @@
     <div class="content">
         <div class="left">
             <div>
-                <img src="{% static 'images/run.jpeg' %}" class="icon">
+                <img src="{% static 'images/run.jpg' %}" class="icon">
             </div>
             {% if status %}
+                <p>用户账号：{{ user.user_id }}</p>
                 <p>用户名：{{ user.user_name }}</p>
                 <p>用户简介：{{ user.user_info }}</p>
                 <form action="{% url 'myShop:change_password' %}" method="post">
@@ -50,10 +51,10 @@
                 {% for ticket in user.tickets %}
                     <div class="ticket">
                         <div class="description">
-                            <p>活动名：{{ ticket.activity_id.activity_name }}</p>
+                            <p style="width: 135px"><span>{{ ticket.activity_id.activity_name }}</span></p>
                         </div>
                         <div class="description">
-                            <p>时间：{{ ticket.activity_id.activity_time }}</p>
+                            <p><span>时间：{{ ticket.activity_id.activity_time }}</span></p>
                             <p>
                                 <span>城市：{{ ticket.activity_id.activity_city }}</span>
                                 <span>地点：{{ ticket.activity_id.activity_spot }}</span>
@@ -72,7 +73,7 @@
                 {% for ticket in user.cart_list %}
                     <div class="ticket">
                         <div class="description">
-                            <p>活动名：{{ ticket.activity_id.activity_name }}</p>
+                            <p style="width: 135px">{{ ticket.activity_id.activity_name }}</p>
                         </div>
                         <div class="description">
                             <p>时间：{{ ticket.activity_id.activity_time }}</p>
@@ -80,10 +81,12 @@
                                 <span>城市：{{ ticket.activity_id.activity_city }}</span>
                                 <span>地点：{{ ticket.activity_id.activity_spot }}</span>
                             </p>
-                            <span>座位号：{{ ticket.seat }}</span>
+                            <span>座位号：选择座位请前往购票</span>
                         </div>
                         <button ac_id="{{ ticket.cart_id }}"
                                 onclick="delete_cart(this)">移除</button>
+                        <button><a href="/myShop/{{ ticket.activity_id.activity_id }}/detail/">购票</a>
+                        </button>
                     </div>
                 {% empty %}
                     <p>暂无数据</p>

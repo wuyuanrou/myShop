@@ -95,12 +95,11 @@
 </head>
 <body>
     <div id="loginDiv">
-        <form action="{% url 'myShop:login_check' %}" id="form" method="post">
+        <form action="{% url 'myShop:login_check' %}" id="form" method="post" enctype="multipart/form-data">
             <h1 style="text-align: center;color: rgb(233, 237, 240);">登陆</h1>
-            <p>账号:<input id="userNname" type="text" name="user_id"><label id="name_trip"></label></p>
+            <p>账号:<input id="userNname" type="text" name="user_id" required><label id="name_trip"></label></p>
  
-            <p>密码:  <input id="password" type="password" name="user_password"><label id="password_trip"></label></p>
- 
+            <p>密码:  <input id="password" type="password" name="user_password" required><label id="password_trip"></label></p>
             <div style="text-align: center;margin-top: 30px;">
                 <button type="submit" class="button" value="登陆">登录</button>
 {#                <button type="reset" class="button" value="重置">重置</button>#}

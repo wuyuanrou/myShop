@@ -81,7 +81,8 @@ button:hover{
 }
 
 .ticket{
-    height: 150px;
+    height: 160px;
+    width: 420px;
     border-radius: 40px 40px 0px 40px;
     background-color: whitesmoke;
     border: #81d4fa solid 2px;
@@ -93,6 +94,8 @@ button:hover{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    font-size: 14px;
 }
 
 .ticket:hover{
@@ -112,15 +115,14 @@ button:hover{
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items:start;
 
     column-gap: 10px;
     row-gap: 50px;
 }
 
 .like{
-    justify-self: center;
-    align-self: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -137,4 +139,8 @@ button:hover{
 .activity_description{
     text-align: left;
     padding-left: 15px;
+}
+
+.title{
+    width: 280px;
 }
